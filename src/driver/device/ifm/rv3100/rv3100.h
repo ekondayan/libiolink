@@ -21,10 +21,10 @@
 #ifndef RV3100_H
 #define RV3100_H
 
-#include "libiolink/src/iodd/iodd_dataaccess.h"
-#include "libiolink/src/iodd/iodd_datatypestring.h"
-#include "libiolink/src/iodd/iodd_datatypeuint.h"
-#include "libiolink/src/iodd/iodd_datatypeint.h"
+#include "../../../../iodd/iodd_dataaccess.h"
+#include "../../../../iodd/iodd_datatypestring.h"
+#include "../../../../iodd/iodd_datatypeuint.h"
+#include "../../../../iodd/iodd_datatypeint.h"
 
 namespace iolink::driver
 {

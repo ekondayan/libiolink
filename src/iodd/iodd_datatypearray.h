@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPEARRAY_H
 #define IODD_DATATYPEARRAY_H
 
-#include "libiolink/src/utils/inc.h"
-#include "libiolink/src/utils/exception.h"
+#include "../utils/inc.h"
+#include "../utils/exception.h"
 
 // TODO: implement subindex_access
 // TODO: template must not accept itself as template argument of IODDType

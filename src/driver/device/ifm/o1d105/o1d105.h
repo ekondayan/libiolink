@@ -21,13 +21,13 @@
 #ifndef O1D105_H
 #define O1D105_H
 
-#include "libiolink/src/iodd/iodd_basedriver.h"
-#include "libiolink/src/iodd/iodd_dataaccess.h"
-#include "libiolink/src/iodd/iodd_datatypestring.h"
-#include "libiolink/src/iodd/iodd_datatypeuint.h"
-#include "libiolink/src/iodd/iodd_datatypeint.h"
-#include "libiolink/src/iodd/iodd_datatypetime.h"
-#include "libiolink/src/iodd/iodd_datatypearray.h"
+#include "../../../../iodd/iodd_basedriver.h"
+#include "../../../../iodd/iodd_dataaccess.h"
+#include "../../../../iodd/iodd_datatypestring.h"
+#include "../../../../iodd/iodd_datatypeuint.h"
+#include "../../../../iodd/iodd_datatypeint.h"
+#include "../../../../iodd/iodd_datatypetime.h"
+#include "../../../../iodd/iodd_datatypearray.h"
 
 namespace iolink::driver
 {

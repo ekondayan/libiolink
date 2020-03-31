@@ -21,7 +21,7 @@
 #ifndef AL1352_DEVICETAG_H
 #define AL1352_DEVICETAG_H
 
-#include "libiolink/src/iot/profiledevicetag.h"
+#include "../../../iot/profiledevicetag.h"
 
 namespace iolink::master::al1352
 {

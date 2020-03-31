@@ -46,7 +46,7 @@ namespace iolink::utils
         return y == 0 ? Type(1) : x * pow(x, y-1);
     }
 
-    bool isLittleEndian()
+    inline bool isLittleEndian()
     {
         int num_endianness = 1;
         return *((char*)&num_endianness) == 0x01;

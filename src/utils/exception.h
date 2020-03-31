@@ -21,7 +21,7 @@
 #ifndef EXCEPTION_H
 #define EXCEPTION_H
 
-#include "libiolink/src/utils/inc.h"
+#include "inc.h"
 
 namespace iolink::utils
 {

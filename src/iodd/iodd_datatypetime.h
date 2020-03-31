@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPETIME_H
 #define IODD_DATATYPETIME_H
 
-#include "libiolink/src/utils/inc.h"
-#include "libiolink/src/utils/exception.h"
+#include "../utils/inc.h"
+#include "../utils/exception.h"
 
 // TODO: implement unpackFromVector()
 // TODO: implement packToVector()
@@ -182,18 +182,18 @@ namespace iolink::iodd
                             return day <= 28;
                         break;
 
-                    case 4:  // April
-                    case 6:  // June
-                    case 9:  // September
+                    case 4:  [[falltrough]]// April
+                    case 6:  [[falltrough]]// June
+                    case 9:  [[falltrough]]// September
                     case 11: // November
                         return day <= 30;
 
-                    case 1:  // January
-                    case 3:  // March
-                    case 5:  // May
-                    case 7:  // July
-                    case 8:  // August
-                    case 10: // Octomber
+                    case 1:  [[falltrough]]// January
+                    case 3:  [[falltrough]]// March
+                    case 5:  [[falltrough]]// May
+                    case 7:  [[falltrough]]// July
+                    case 8:  [[falltrough]]// August
+                    case 10: [[falltrough]]// Octomber
                     case 12: // December
                         return day <= 31;
                 }

@@ -21,9 +21,9 @@
 #ifndef IODD_DATATYPEUINT_H
 #define IODD_DATATYPEUINT_H
 
-#include "libiolink/src/utils/misc.h"
-#include "libiolink/src/utils/inc.h"
-#include "libiolink/src/utils/exception.h"
+#include "../utils/misc.h"
+#include "../utils/inc.h"
+#include "../utils/exception.h"
 
 // TODO: implement packToVector()
 

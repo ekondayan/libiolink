@@ -21,8 +21,8 @@
 #ifndef AL1352_MASTER_H
 #define AL1352_MASTER_H
 
-#include "libiolink/src/utils/exception.h"
-#include "libiolink/src/iot/structdevice.h"
+#include "../../../utils/exception.h"
+#include "../../../iot/structdevice.h"
 #include "deviceinfo.h"
 #include "devicetag.h"
 #include "firmware.h"

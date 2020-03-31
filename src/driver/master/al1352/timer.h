@@ -21,8 +21,8 @@
 #ifndef AL1352_TIMER_H
 #define AL1352_TIMER_H
 
-#include "libiolink/src/iot/dataaccess.h"
-#include "libiolink/src/iot/profiletimer.h"
+#include "../../../iot/dataaccess.h"
+#include "../../../iot/profiletimer.h"
 
 namespace iolink::master::al1352
 {

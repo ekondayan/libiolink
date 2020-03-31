@@ -21,7 +21,7 @@
 #ifndef IODD_BASEDRIVER_H
 #define IODD_BASEDRIVER_H
 
-#include "libiolink/src/iot/profileiolinkdevice.h"
+#include "../iot/profileiolinkdevice.h"
 
 namespace iolink::iodd
 {

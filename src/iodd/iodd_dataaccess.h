@@ -21,7 +21,7 @@
 #ifndef IODD_DATAACCESS_H
 #define IODD_DATAACCESS_H
 
-#include "libiolink/src/utils/inc.h"
+#include "../utils/inc.h"
 #include "iodd_basedriver.h"
 
 namespace iolink::iodd

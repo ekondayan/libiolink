@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPEBOOLEAN_H
 #define IODD_DATATYPEBOOLEAN_H
 
-#include "libiolink/src/utils/inc.h"
-#include "libiolink/src/utils/exception.h"
+#include "../utils/inc.h"
+#include "../utils/exception.h"
 
 namespace iolink::iodd
 {

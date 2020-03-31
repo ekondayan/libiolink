@@ -21,7 +21,7 @@
 #ifndef AL1352_DEVICEINFO_H
 #define AL1352_DEVICEINFO_H
 
-#include "libiolink/src/iot/profiledeviceinfo.h"
+#include "../../../iot/profiledeviceinfo.h"
 
 namespace iolink::master::al1352
 {

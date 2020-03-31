@@ -54,14 +54,6 @@ namespace iolink::iot
             {
                 return DataType::requestGet("/getdata")["data"]["value"];
             }
-
-            json_t setData(typename DataType::type_t value) const
-            {
-                if(!this->isValid(value))
-                    throw iolink::utils::exception_argument(__func__, "Trying to set a invalid value");
-
-                return DataType::requestPost("/setdata", R"("newvalue":")" + std::to_string(value) + R"(")");
-            }
     };
 
     template<typename DataType, typename ...Args>

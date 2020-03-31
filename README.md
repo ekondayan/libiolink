@@ -8,11 +8,11 @@ C++17 header only, driver library for manipulating **IO-Link** devices and maste
 
 - All the [IFM's IO-Link Masters](https://www.ifm.com/us/en/category/055/055_010)
 
-- All the **IO-Link** compatible devices regardless of the manufacturer.
+- All the **IO-Link** compatible devices(sensors, actuators, displays, etc.) regardless of the manufacturer.
 
-The library not only allows you to use the available drivers, but also gives you the tools to implement them by yourself. Writing a driver for an IFM's master or an **IO-Link** compatible devices from scratch can be done in just a few minutes.
+The library provides drivers for most of IFM masters and a growing collection of drivers for IO-Link devices. The library not only allows you to use the available drivers, but also gives you the tools to implement them by yourself. Writing a driver for an IFM's master can be done in just a few minutes and writing a driver for an **IO-Link** compatible devices from scratch can be done even faster.
 
- It is making heavy usage of C++ template system which  gives big performance benefit.  The header only approach greatly simplifies the process of including it into other projects. The minimum C++ standard is [ISO/IEC 14882](https://en.wikipedia.org/wiki/ISO/IEC_14882) (C++17).
+ It is making heavy usage of C++ template system which  gives big performance benefit for the runtime executable.  The header only approach greatly simplifies the process of including it into other projects. The minimum C++ standard is [ISO/IEC 14882](https://en.wikipedia.org/wiki/ISO/IEC_14882) (C++17).
 
 It is intended to be used in a several different ways:
 
@@ -22,7 +22,7 @@ It is intended to be used in a several different ways:
 
 - Write you own driver for manipulating an IFM master
 
-- Write you own driver for manipulating IO-Link device
+- Write you own driver for manipulating **IO-Link** device
 
 - A mixture of all the above
 
@@ -36,7 +36,7 @@ https://github.com/nlohmann/json to parse requests and responses from/to the
 
 master. It is already included in the project so no action is required on your
 
-side. This is the only dependency and the rest is plain C++17.
+side. This is the only dependency and the rest is plain C++17. You can use this library in you project as an added benefit.
 
 # <u>Usage</u>
 
@@ -53,7 +53,7 @@ Those two methods do one simple task - to execute a **POST** and a **GET** reque
 
 the master and return its raw response. This design decision was made for two reasons:
 
-- There is a plethora of network libraries out there and  there is no reason to duplicate their functionality
+- There is a plethora of networking libraries out there and  there is no reason to duplicate their functionality
 
 - You may want  to use one of your choice
 
@@ -65,26 +65,26 @@ the master and return its raw response. This design decision was made for two re
 A code snippet worth a thousand words.
 
 ```cpp
-al1352::Device al1352(std::make_unique<Comm>("192.168.1.30"));
+al1352::Device al1352(std::make_unique<Comm>());
 ```
 
-Here `Comm` is your class that inherits form `iolink::iot::InterfaceComm`. This is
-
-all you need to have full controll over the master. 
+Here `Comm` is your class that inherits form `iolink::iot::InterfaceComm`. The code above will create a driver instance for the AL1352 master. This is all you need to have full controll over the master. 
 
 ## Instantiate a driver for the device
 
-To read and write the **IO-Link** devices connected to the master, a device driver must be attached to a port on the master itself. This may sound complicate but it boils down to a single line of code ;)
+Using only the masters driver is not of a much use, unless you plan to use only it's digital I/O interfaces. To read and write the **IO-Link** devices connected to the master, a device driver must be attached to a port on the master itself. This may sound complicate but it boils down to a single line of code ;)
 
 ```cpp
 auto o1d105_w = al1352.iolinkmaster.port3.iolinkdevice.driverAttach<O1D105>();
 ```
 
-This will instantiate a driver and will also attach it to a port on the master in this example `port3`. The variable `o1d105_w` is a weak pointer to `O1D105` driver. To access the devices you have to cast the pointer to a shared pointer by calling `o1d105_w.lock()` on the weak pointer:
+This will instantiate a driver and will also attach it to a port on the master, in this example `port3`. The variable `o1d105_w` is a weak pointer to `O1D105` driver. To access the devices you have to cast the pointer to a shared pointer by calling `o1d105_w.lock()` on the weak pointer:
 
 ```cpp
 auto o1d105_drv = o1d105_w.lock();
 ```
+
+This approach using weak pointers will save you from shooting yourself in the foot. For example if you delete the master's driver instance you will not be left with a dangling device drivers. Because of the tight integration between the device driver and the master driver, trying to access a dangling device driver will cause a crash.
 
 Example:
 
@@ -93,7 +93,7 @@ if(auto o1d105_drv = o1d105_w.lock())
   auto power_cycles = o1d105_drv->power_cycles.read();
 ```
 
-That's it. Here comes the ...
+That's it and here comes the ...
 
 ## Full blown example
 
@@ -208,7 +208,7 @@ anything, just include the header files into your project.
 
 # <u>License</u>
 
-Copyright (c) 2019 Emil Kondayan
+Copyright (c) 2019-will2020 Emil Kondayan
 
 This Source Code Form is subject to the terms of the Mozilla Public
 
@@ -226,12 +226,4 @@ file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 * if you are feeling nerdy, dig into the source code :)
 
-# <u>Credits</u>
-
-Author: Emil Kondayan
-
-Owner: Emil Kondayan
-
-Maintainer: Emil Kondayan
-
-Contributors: Emil Kondayan
+# 

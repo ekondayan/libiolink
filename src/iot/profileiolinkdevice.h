@@ -23,7 +23,7 @@
 
 #include "dataaccess.h"
 
-#include "libiolink/src/utils/convert.h"
+#include "../utils/convert.h"
 
 namespace iolink::iodd
 {

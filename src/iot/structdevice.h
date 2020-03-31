@@ -21,7 +21,7 @@
 #ifndef STRUCT_DEVICE_H
 #define STRUCT_DEVICE_H
 
-#include "libiolink/src/iot/base.h"
+#include "../iot/base.h"
 
 namespace iolink::iot
 {

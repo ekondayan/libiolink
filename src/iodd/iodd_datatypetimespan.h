@@ -21,8 +21,8 @@
 #ifndef IODD_TIMESPAN_H
 #define IODD_TIMESPAN_H
 
-#include "libiolink/src/utils/inc.h"
-#include "libiolink/src/utils/exception.h"
+#include "../utils/inc.h"
+#include "../utils/exception.h"
 
 // TODO: implement unpackFromVector()
 // TODO: implement packToVector()

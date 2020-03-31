@@ -21,9 +21,9 @@
 #ifndef AL1352_FIRMWARE_H
 #define AL1352_FIRMWARE_H
 
-#include "libiolink/src/iot/profileblob.h"
-#include "libiolink/src/iot/profilesoftware.h"
-#include "libiolink/src/iot/profileuploadablesoftware.h"
+#include "../../../iot/profileblob.h"
+#include "../../../iot/profilesoftware.h"
+#include "../../../iot/profileuploadablesoftware.h"
 
 namespace iolink::master::al1352
 {

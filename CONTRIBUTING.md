@@ -1,6 +1,6 @@
 # <u>Contributing to libiolink</u>
 
-First off, thanks for taking the time to contribute! Every contribution to the project is more than welcome, no matter how small it is. The following is a set of guidelines for contributing to libiolink, which is hosted on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+First off, thanks for taking the time to contribute! Every contribution to the project is more than welcome, no matter how big or small it is. The following is a set of guidelines for contributing to libiolink, which is hosted on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 # <u>Code of Conduct</u>
 

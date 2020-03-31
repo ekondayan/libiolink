@@ -21,7 +21,7 @@
 #ifndef DATATYPE_H
 #define DATATYPE_H
 
-#include "libiolink/src/utils/inc.h"
+#include "../utils/inc.h"
 
 #include "base.h"
 

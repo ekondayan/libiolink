@@ -21,7 +21,7 @@
 #ifndef AL1352_NETWORK_H
 #define AL1352_NETWORK_H
 
-#include "libiolink/src/iot/profilenetwork.h"
+#include "../../../iot/profilenetwork.h"
 
 namespace iolink::master::al1352
 {

@@ -21,8 +21,8 @@
 #ifndef AL1352_IOLINKMASTER_H
 #define AL1352_IOLINKMASTER_H
 
-#include "libiolink/src/iot/profileblob.h"
-#include "libiolink/src/iot/profileiolinkmaster.h"
+#include "libiolink/iot/profileblob.h"
+#include "libiolink/iot/profileiolinkmaster.h"
 
 namespace iolink::master::al1352
 {

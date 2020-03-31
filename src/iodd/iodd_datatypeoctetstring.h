@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPEOCTETSTRING_H
 #define IODD_DATATYPEOCTETSTRING_H
 
-#include "libiolink/src/utils/inc.h"
-#include "libiolink/src/utils/exception.h"
+#include "libiolink/utils/inc.h"
+#include "libiolink/utils/exception.h"
 
 // TODO: implement packToVector() only when the length is fixed
 

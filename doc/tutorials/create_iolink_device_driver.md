@@ -55,13 +55,13 @@ namespace iolink::driver
 #endif // O1D105_H
 ```
 
-Copy and paste the code above in the driver's file `o1d105.h`. The lifetime of the driver instance is controlle by the master's driver that is why the copy, move operations and default constructor are disabled. At this point you can attach the newly created driver to the master's object by calling `driverAttach<O1D105>()`. The template parameter is the name of the driver's class, in this case `O1D105`.
+Copy and paste the code above in the driver's file `o1d105.h`. The lifetime of the driver instance is controlled by the master's driver that is why the copy, move operations and default constructor are disabled. At this point you can attach the newly created driver to the master's object by calling `driverAttach<O1D105>()`. The template parameter is the name of the driver's class, in this case `O1D105`.
 
 ```cpp
 auto driver_w = <MASTER_OBJECT>.iolinkmaster.port1.iolinkdevice.driverAttach<O1D105>();
 ```
 
-This is the bare minimum to have a working driver, but without handling the Process Data and the Acyclic Data, this driver wouldn't be much usefull. At this point you must get familiar with the device IO-Link interface description. Most of device manufacturers provide a PDF version, which is much easier to read. If you can not find the PDF file for your device, you have to dig into the IO-Device Description XML files. Luckily ifm provide a PDF file, which can be found here: [O1D105](https://www.ifm.com/download/files/ifm-O1D105-20180125-IODD11-en/$file/ifm-O1D105-20180125-IODD11-en.pdf)
+This is the bare minimum to have a working driver, but without handling the Process Data and the Acyclic Data, this driver wouldn't be of much use. At this point you must get familiar with the device's IO-Link interface description. Most of device manufacturers provide a PDF version, which is much easier to read. If you do not have access to the PDF file of the device, you have to dig into the IO-Device Description XML files. Luckily ifm provide a PDF file, which can be found here: [O1D105](https://www.ifm.com/download/files/ifm-O1D105-20180125-IODD11-en/$file/ifm-O1D105-20180125-IODD11-en.pdf)
 
 Reading a Process Data involves two steps:
 
@@ -78,7 +78,9 @@ struct ProcessData
 };
 ```
 
-- read the Process Data from the master and decode it into a vector by calling `decodeFromHexStringiolink::vector_t`. The ifm masters return the data as a hex encoded string. To read the process data from the device, you have to acuire a shared pointer to the master first by calling `getIOLinkDevice()`. This is a helper function inherited from `BaseDriver`. It tries to lock the weak pointer to the master's object. If it fails an exception is trown.
+- read the Process Data from the master and decode it into a vector by calling `decodeFromHexString<iolink::vector_t>`. The ifm master returns the data as a hex encoded string.
+  
+  To read the process data from the device, you have to acuire a shared pointer to the master first by calling `BaseDriver::getIOLinkDevice()`. This is a helper function inherited from `BaseDriver`. It tries to lock the weak pointer to the master's object. If it fails an exception is trown.
 
 ```cpp
 auto data = decodeFromHexString<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
@@ -126,9 +128,9 @@ ProcessData processData() const
 }
 ```
 
-Now you have a real working driver, but this is only half of the job. The other half involves implementing the asynchronous calls for accessing the device's parameters. This step is a little bit more involving because it requires you to get familiar with the IODD and the Access classes. 
+Now you have a real working driver, but this is only half of the job. The other half involves implementing the asynchronous calls for accessing the device's parameters. This step is a little bit more involving because it requires you to get familiar with the **IODD** and  **Access** classes. 
 
-There are three template  Access classes: Read, Write, ReadWrite. The first and the second arguments are the index and subindex of the parameter. The third parameter is the IODD type. In the constructor the first parameter must be a pointer to the driver itself. The rest of the parameters are forwarded to the IODD constructor.
+There are three template **Access** classes: `Read`, `Write` and `ReadWrite`. The first and the second template arguments are the index and subindex of the parameter. The third parameter is the **IODD** type. In the constructor the first parameter must be a pointer to the driver itself. The rest of the parameters are forwarded to the **IODD** class constructor.
 
 For example the `vendor_name` parameter is a read only of type StringT. It's index is `16` and the subindex is `0`. You can define it like this:
 
@@ -138,7 +140,7 @@ Read<16, 0, StringT> vendor_name{this, 19_ui32};
 
 The first parameter in the constructor is a pointer to the driver. The second one, specifies the maximum string length. The literal `_ui32` converts from signed 32 bit integer to unsigned 32 bit integer.
 
-Another example is the `dS1` parameter. It is ReadWrite with index `370` and subindex `0`. It's type is 16 bit length UIntegerT with minimum value of `0` and maximum `5000`.
+Another example is the `dS1` parameter. It ReadWrite access, index `370` and subindex `0`. It's type is 16 bit length UIntegerT with minimum value of `0` and maximum `5000`.
 
 ```cpp
 ReadWrite<370, 0, UIntegerT<16>> dS1{this, 0_ui16, 5000_ui16};

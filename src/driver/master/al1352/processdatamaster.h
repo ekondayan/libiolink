@@ -21,7 +21,7 @@
 #ifndef AL1352_PROCESSDATAMASTER_H
 #define AL1352_PROCESSDATAMASTER_H
 
-#include "libiolink/src/iot/dataaccess.h"
+#include "../../../iot/dataaccess.h"
 
 namespace iolink::master::al1352
 {

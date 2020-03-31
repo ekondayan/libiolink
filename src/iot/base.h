@@ -22,7 +22,7 @@
 #define BASE_H
 
 #include "interfacecomm.h"
-#include "libiolink/src/utils/exception.h"
+#include "../utils/exception.h"
 
 namespace iolink::iot
 {
@@ -81,6 +81,9 @@ namespace iolink::iot
                 if(!m_comm)
                     throw iolink::utils::exception_logic(__func__, "Communication object not set");
 
+                if(m_comm->isSecurityMode())
+                    return requestPost(adr);
+
                 return checkResponseCode(json_t::parse(m_comm->httpGet(adr)));
             }
 
@@ -89,13 +92,10 @@ namespace iolink::iot
                 return requestPost(adr, json_t::parse("{"+data+"}"));
             }
 
-            json_t requestPost(string_t adr, const json_t& data) const
+            json_t requestPost(string_t adr, const json_t& data = {}) const
             {
                 if(adr.empty())
                     throw iolink::utils::exception_argument(__func__, "Address argument must be non empty string");
-
-                if(data.empty())
-                    throw iolink::utils::exception_argument(__func__, "Data argument must be non empty json object");
 
                 if(m_parent)
                 {
@@ -112,7 +112,9 @@ namespace iolink::iot
                 request["cid"]  = -1;
                 request["code"] = "request";
                 request["adr"]  = adr;
-                request["data"] = data;
+                if(!data.empty())
+                    request["data"] = data;
+                m_comm->applySecurityToRequestObject(request);
 
                 return checkResponseCode(json_t::parse(m_comm->httpPost(request.dump())));
             }
