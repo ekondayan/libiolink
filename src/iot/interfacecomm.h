@@ -21,9 +21,9 @@
 #ifndef INTERFACECOMM_H
 #define INTERFACECOMM_H
 
-#include "../utils/inc.h"
-#include "../utils/convert.h"
-#include "../utils/exception.h"
+#include "../inc.h"
+#include "../utils.h"
+#include "../exception.h"
 
 namespace iolink::iot
 {
@@ -46,7 +46,7 @@ namespace iolink::iot
             void applySecurityToRequestObject(json_t &request)
             {
                 if(!m_username.empty())
-                    request["auth"] = { {"user", utils::encodeToBase64(m_username)}, {"passwd", utils::encodeToBase64(m_password)}};
+                    request["auth"] = { {"user", utils::base64Encode(m_username)}, {"passwd", utils::base64Encode(m_password)}};
             }
 
             bool isSecurityMode() const

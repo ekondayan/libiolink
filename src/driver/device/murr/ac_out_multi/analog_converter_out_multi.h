@@ -40,7 +40,7 @@ namespace iolink::driver
 
             //        ProcessData processData() const
             //        {
-            //            auto data = iolink::utils::decodeFromHexString<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
+            //            auto data = iolink::utils::hexDecode<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
 
             //            ProcessData reading = {
             //                .distance     = int16_t((int16_t(data[0]) << 8) | int16_t(data[1])),

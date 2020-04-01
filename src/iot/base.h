@@ -22,7 +22,7 @@
 #define BASE_H
 
 #include "interfacecomm.h"
-#include "../utils/exception.h"
+#include "../exception.h"
 
 namespace iolink::iot
 {

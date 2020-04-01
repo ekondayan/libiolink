@@ -21,7 +21,7 @@
 #ifndef AL1352_MASTER_H
 #define AL1352_MASTER_H
 
-#include "../../../utils/exception.h"
+#include "../../../exception.h"
 #include "../../../iot/structdevice.h"
 #include "deviceinfo.h"
 #include "devicetag.h"

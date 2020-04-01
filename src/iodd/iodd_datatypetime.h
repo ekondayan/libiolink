@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPETIME_H
 #define IODD_DATATYPETIME_H
 
-#include "../utils/inc.h"
-#include "../utils/exception.h"
+#include "../inc.h"
+#include "../exception.h"
 
 // TODO: implement unpackFromVector()
 // TODO: implement packToVector()

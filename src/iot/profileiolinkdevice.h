@@ -23,7 +23,7 @@
 
 #include "dataaccess.h"
 
-#include "../utils/convert.h"
+#include "../utils.h"
 
 namespace iolink::iodd
 {
@@ -56,19 +56,19 @@ namespace iolink::iot
             template<typename T>
             void write(T value, uint32_t index, uint32_t sub_index = 0) const
             {
-                iolWriteAcyclic(utils::encodeToHexString(std::forward<T>(value)), index, sub_index);
+                iolWriteAcyclic(utils::hexEncode(std::forward<T>(value)), index, sub_index);
             }
 
             template<typename T>
             T read(uint32_t index, uint32_t sub_index = 0) const
             {
-                return utils::decodeFromHexString<T>(string_t{iolReadAcyclic(index, sub_index)["data"]["value"]});
+                return utils::hexDecode<T>(string_t{iolReadAcyclic(index, sub_index)["data"]["value"]});
             }
 
             template<typename T>
             std::weak_ptr<T> driverAttach()
             {
-                if constexpr(std::is_base_of<iodd::BaseDriver, T>::value)
+                if constexpr(std::is_base_of_v<iodd::BaseDriver, T>)
                 {
                     if(m_driver && !m_driver.unique())
                         throw iolink::utils::exception_logic(__func__, "Driver still in use. Please release all shared pointers to the old driver before reataching a new one");
@@ -93,7 +93,7 @@ namespace iolink::iot
             template<typename T>
             std::weak_ptr<T> driver() const
             {
-                if constexpr(std::is_base_of<iodd::BaseDriver, T>::value)
+                if constexpr(std::is_base_of_v<iodd::BaseDriver, T>)
                 {
                     return std::dynamic_pointer_cast<T>(m_driver);
                 }

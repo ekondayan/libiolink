@@ -1,36 +1,41 @@
-/*
- *   ___ ___        _     _       _
- *  |_ _/ _ \      | |   (_)_ __ | | __
- *   | | | | |_____| |   | | '_ \| |/ /
- *   | | |_| |_____| |___| | | | |   <
- *  |___\___/      |_____|_|_| |_|_|\_\
- *
- * Header only driver library for interfacing IO-Link devices and masters
- * written in modern C++
- *
- * Version: 0.1.0
- * URL: https://github.com/ekondayan/libiolink.git
- *
- * Copyright (c) 2019 Emil Kondayan
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
-#ifndef CONVERT_H
-#define CONVERT_H
+#ifndef UTILS_H
+#define UTILS_H
 
 #include "inc.h"
-#include "misc.h"
 #include "exception.h"
 
 namespace iolink::utils
 {
-    template <typename T>
-    inline T decodeFromHexString(const string_t &str)
+    template <typename Type, std::size_t bits, std::size_t lshift = 0>
+    constexpr Type createBitMask()
     {
-        auto hexCharToInt = [](const char ch)
+        static_assert (std::is_integral_v<Type> && std::is_unsigned_v<Type> && sizeof(Type)*8 >= bits, "Bitmask can not be larger than the type size");
+        static_assert ((sizeof(Type)*8 - bits) >= lshift, "Too much left shifting. The bitmask will be shifted out");
+
+        Type mask = 0;
+
+        for(std::size_t i = 0; i < bits; ++i)
+            mask = (mask << 1) | 0x01;
+
+        return mask << lshift;
+    }
+
+    template <typename Type>
+    constexpr Type pow(Type x, int y)
+    {
+        return y == 0 ? Type(1) : x * pow(x, y-1);
+    }
+
+    inline bool isLittleEndian()
+    {
+        int num_endianness = 1;
+        return *((char*)&num_endianness) == 0x01;
+    }
+
+    template <typename T>
+    inline T hexDecode(const string_t &str)
+    {
+        auto hexCharToInt = [](const char ch) -> uint8_t
         {
             static const char* const lut_upper = "0123456789ABCDEF";
             static const char* const lut_lower = "0123456789abcdef";
@@ -46,7 +51,7 @@ namespace iolink::utils
             throw iolink::utils::exception_argument(__func__, "Input string contains a char that is not a hex digit");
         };
 
-        if constexpr(std::is_same<T, bool>::value)
+        if constexpr(std::is_same_v<T, bool>)
         {
             std::regex reg_true("(true|1)", std::regex_constants::icase);
             if(std::regex_match(str, reg_true))
@@ -58,7 +63,7 @@ namespace iolink::utils
 
             throw iolink::utils::exception_argument(__func__, "Value does not represent boolean");
         }
-        else if constexpr(std::is_floating_point<T>::value)
+        else if constexpr(std::is_floating_point_v<T>)
         {
             if (str.length() != 8)
                 throw iolink::utils::exception_argument(__func__, "Input string must be 8 bytes long");
@@ -83,7 +88,7 @@ namespace iolink::utils
 
             return decoded;
         }
-        else if constexpr(std::is_integral<T>::value)
+        else if constexpr(std::is_integral_v<T>)
         {
             size_t len = str.length();
 
@@ -110,7 +115,7 @@ namespace iolink::utils
 
             return output;
         }
-        else if constexpr(std::is_same<T, string_t>::value || std::is_same<T, vector_t>::value)
+        else if constexpr(std::is_same_v<T, string_t> || std::is_same_v<T, vector_t>)
         {
             size_t len = str.length();
             if (len & 1)
@@ -131,16 +136,16 @@ namespace iolink::utils
     }
 
     template<typename T>
-    inline string_t encodeToHexString(T value)
+    inline string_t hexEncode(T value)
     {
         // Look up table
         static const char* const lut_upper = "0123456789ABCDEF";
 
-        if constexpr(std::is_same<T, bool>::value)
+        if constexpr(std::is_same_v<T, bool>)
         {
             return "0" + lut_upper[value & 0x0F];
         }
-        else if constexpr(std::is_floating_point<T>::value)
+        else if constexpr(std::is_floating_point_v<T>)
         {
             float f = static_cast<float>(value);
             uint8_t *ch = reinterpret_cast<uint8_t*>(&f);
@@ -163,7 +168,7 @@ namespace iolink::utils
 
             return output;
         }
-        else if constexpr(std::is_integral<T>::value)
+        else if constexpr(std::is_integral_v<T>)
         {
             string_t output;
 
@@ -184,7 +189,7 @@ namespace iolink::utils
 
             return output;
         }
-        else if constexpr(std::is_same<T, string_t>::value || std::is_same<T, vector_t>::value)
+        else if constexpr(std::is_same_v<T, string_t>|| std::is_same_v<T, vector_t>)
         {
             const size_t len = value.length();
             string_t output;
@@ -207,7 +212,7 @@ namespace iolink::utils
     }
 
 
-    inline string_t encodeToBase64(const vector_t& input)
+    inline string_t base64Encode(const vector_t& input)
     {
         static const char* const lut_base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         constexpr char pad_char_base64 = '=';
@@ -248,12 +253,12 @@ namespace iolink::utils
         return output;
     }
 
-    inline string_t encodeToBase64(const string_t& input)
+    inline string_t base64Encode(const string_t& input)
     {
-        return encodeToBase64(vector_t{input.begin(), input.end()});
+        return base64Encode(vector_t{input.begin(), input.end()});
     }
 
-    //    std::vector<byte> decode(const std::string& input)
+    //    std::vector<byte> base64Decode(const std::string& input)
     //            {
     //                    if(input.length() % 4)
     //                            throw std::runtime_error("Invalid base64 length!");
@@ -340,4 +345,4 @@ namespace iolink::utils
     }
 }
 
-#endif // CONVERT_H
+#endif // UTILS_H

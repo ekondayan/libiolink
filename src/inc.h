@@ -33,7 +33,7 @@
 #include <vector>
 #include <string>
 
-#include "../lib/json.hpp"
+#include "lib/json.hpp"
 
 namespace iolink
 {

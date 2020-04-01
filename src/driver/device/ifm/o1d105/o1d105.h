@@ -61,7 +61,7 @@ namespace iolink::driver
 
             ProcessData processData() const
             {
-                auto data = decodeFromHexString<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
+                auto data = hexDecode<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
 
                 ProcessData reading = {
                     .distance     = int16_t((int16_t(data[0]) << 8) | int16_t(data[1])),
@@ -76,7 +76,7 @@ namespace iolink::driver
 
             //            std::tuple<int16_t, int16_t, uint8_t, bool, bool> processData() const
             //            {
-            //                auto data = decodeFromHexString<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
+            //                auto data = hexDecode<iolink::vector_t>(getIOLinkDevice()->pdin.getData());
 
             //                return {
             //                            int16_t((int16_t(data[0]) << 8) | int16_t(data[1])),

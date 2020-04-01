@@ -21,7 +21,7 @@
 #ifndef DATATYPE_H
 #define DATATYPE_H
 
-#include "../utils/inc.h"
+#include "../inc.h"
 
 #include "base.h"
 

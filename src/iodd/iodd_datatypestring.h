@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPESTRING_H
 #define IODD_DATATYPESTRING_H
 
-#include "../utils/inc.h"
-#include "../utils/exception.h"
+#include "../inc.h"
+#include "../exception.h"
 
 // TODO: implement unpackFromVector() only when the length is fixed
 // TODO: implement packToVector() only when the length is fixed

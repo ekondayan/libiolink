@@ -21,8 +21,8 @@
 #ifndef IODD_DATATYPEFLOAT32_H
 #define IODD_DATATYPEFLOAT32_H
 
-#include "../utils/inc.h"
-#include "../utils/exception.h"
+#include "../inc.h"
+#include "../exception.h"
 
 // TODO: implement packToVector()
 

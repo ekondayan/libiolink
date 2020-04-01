@@ -21,9 +21,9 @@
 #ifndef IODD_DATATYPEINT_H
 #define IODD_DATATYPEINT_H
 
-#include "../utils/misc.h"
-#include "../utils/inc.h"
-#include "../utils/exception.h"
+#include "../utils.h"
+#include "../inc.h"
+#include "../exception.h"
 
 // TODO: implement packToVector()
 
